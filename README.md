@@ -146,10 +146,6 @@ if ($py) { & $py -m venv .venv } else { $env:UV_INSTALL_DIR = "$PWD\.uv"; $env:U
 │  └─ verify_rebar.py     # 결과 IFC 독립 검증 + 단면 비교 이미지
 ├─ input/                 # 원본 IFC를 넣는 폴더 (비어 있음)
 ├─ output/                # 결과 IFC가 저장되는 기본 폴더 (비어 있음)
-├─ docs/
-│  ├─ section_before_after.png          # 단면 비교 캡처
-│  ├─ ui_2_preview.png, ui_3_progress.png, ui_4_result.png   # 화면 캡처
-│  └─ AI_활용_및_접근방식.md
 ├─ requirements.txt
 ```
 
