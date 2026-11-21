@@ -82,9 +82,10 @@ IFC(IFC2X3, Tekla Structures 출력) 보 모델에서 <b>주근(상부근·하�
 ```bash
 cd ~/Downloads/girder_rebar_modifier
 ```
-2. 최초 1회만: 폴더 안에 전용 환경을 만들고 라이브러리를 설치합니다.
+2. 최초 1회만: Python 환경을 준비합니다. **Python 3.10 이상이 있으면 그것을 쓰고, 없으면 이 폴더 안에 Python 3.12를 자동 설치**합니다(인터넷 필요). 아래 세 줄을 그대로 붙여넣으세요.
 ```bash
-python3 -m venv .venv
+PY=""; for c in python3.13 python3.12 python3.11 python3.10 python3; do if command -v $c >/dev/null 2>&1 && $c -c 'import sys; sys.exit(0 if sys.version_info >= (3, 10) else 1)' 2>/dev/null; then PY=$c; break; fi; done
+if [ -n "$PY" ]; then $PY -m venv .venv; else curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR="$PWD/.uv" UV_NO_MODIFY_PATH=1 sh && UV_PYTHON_INSTALL_DIR="$PWD/.uv/python" "$(ls .uv/uv .uv/bin/uv 2>/dev/null | head -1)" venv .venv --python 3.12 --seed; fi
 .venv/bin/python -m pip install -r requirements.txt
 ```
 3. 변환합니다 (D19 × 5개, 자동 등간격). `output` 폴더에 결과 IFC가 생깁니다.
@@ -102,9 +103,10 @@ python3 -m venv .venv
 ```powershell
 cd "C:\Users\사용자이름\Downloads\girder_rebar_modifier"
 ```
-2. 최초 1회만: 폴더 안에 전용 환경을 만들고 라이브러리를 설치합니다.
+2. 최초 1회만: Python 환경을 준비합니다. **Python 3.10 이상이 있으면 그것을 쓰고, 없으면 이 폴더 안에 Python 3.12를 자동 설치**합니다(인터넷 필요). 아래 세 줄을 그대로 붙여넣으세요.
 ```powershell
-python -m venv .venv
+$py = $null; foreach ($c in "python", "py") { try { if ((& $c -c "import sys; print(sys.version_info >= (3, 10))" 2>$null) -eq "True") { $py = $c; break } } catch {} }
+if ($py) { & $py -m venv .venv } else { $env:UV_INSTALL_DIR = "$PWD\.uv"; $env:UV_NO_MODIFY_PATH = "1"; $env:UV_PYTHON_INSTALL_DIR = "$PWD\.uv\python"; powershell -NoProfile -ExecutionPolicy ByPass -Command "irm https://astral.sh/uv/install.ps1 | iex"; $uv = Get-ChildItem "$PWD\.uv" -Recurse -Filter uv.exe | Select-Object -First 1; & $uv.FullName venv .venv --python 3.12 --seed }
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 3. 변환합니다 (D19 × 5개, 자동 등간격). `output` 폴더에 결과 IFC가 생깁니다.
@@ -117,7 +119,6 @@ python -m venv .venv
 ```
 
 성공하면 마지막에 `[저장] output...` 줄이 나오고, `output` 폴더에 결과 IFC가 생깁니다.
-2단계가 실패하면 Python 3.10 이상이 설치되어 있는지 `python --version`(Mac은 `python3 --version`)으로 확인하세요.
 
 **옵션 (`modify_rebar.py`)**
 
