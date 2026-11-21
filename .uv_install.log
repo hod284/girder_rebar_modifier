@@ -1,6 +1,0 @@
-downloading uv 0.13.9 aarch64-apple-darwin
-installing to /Users/jeong-yunsu/Documents/GitHub/girder_rebar_modifier/.uv
-  uv
-  uvx
-everything's installed!
-[31mWARN(B[m: The following commands are shadowed by other commands in your PATH: uv uvx
