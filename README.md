@@ -71,26 +71,54 @@ IFC(IFC2X3, Tekla Structures 출력) 보 모델에서 <b>주근(상부근·하�
 - 저장 경로가 원본 파일과 같으면 실행되지 않습니다(원본 보호).
 - 결과 파일이 Tekla나 뷰어에서 열려 있어 저장할 수 없으면 안내 메시지를 띄웁니다.
 
-### 1.2 명령줄 (CLI)
+### 1.2 명령어로 실행 (터미널 / PowerShell)
 
-Python 3.10 이상과 라이브러리가 필요합니다(3.12·3.13에서 테스트). 주요 라이브러리는 `ifcopenshell`(0.9.0에서 테스트), `numpy`, `matplotlib`, `streamlit`, `plotly`, `pandas`입니다.
+화면 없이 명령어로 변환합니다. 아래 명령을 **순서대로 복사해 붙여넣으면** 됩니다.
+원본 IFC 파일은 미리 `input` 폴더에 넣어 두세요. 예시는 원본 파일 이름이 `girder rebar.ifc`인 경우이며, 파일 이름에 띄어쓰기가 있으면 **따옴표로 감싸야** 합니다.
 
+**macOS (터미널)**
+
+1. 프로그램 폴더로 이동합니다. 경로는 실제 위치에 맞게 바꾸세요.
 ```bash
-pip install -r requirements.txt
+cd ~/Downloads/girder_rebar_modifier
+```
+2. 최초 1회만: 폴더 안에 전용 환경을 만들고 라이브러리를 설치합니다.
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+```
+3. 변환합니다 (D19 × 5개, 자동 등간격). `output` 폴더에 결과 IFC가 생깁니다.
+```bash
+.venv/bin/python src/modify_rebar.py "input/girder rebar.ifc" "output/girder rebar_D19x5.ifc" --size 19 --count 5
+```
+4. (선택) 결과를 검증합니다.
+```bash
+.venv/bin/python src/verify_rebar.py "input/girder rebar.ifc" "output/girder rebar_D19x5.ifc"
 ```
 
-원본 IFC를 `input` 폴더에 넣은 뒤(예: `input/girder_rebar.ifc`) 아래 명령을 입력합니다. Windows는 `run_cli.bat`에 IFC 파일을 끌어다 놓아도 됩니다.
+**Windows (PowerShell)**
 
-```bash
-# 1) 배근 변경 (기본값: D19, 5개, 자동 등간격, 피복 40mm, 상·하부 모두)
-python src/modify_rebar.py input/girder_rebar.ifc output/girder_rebar_D19x5.ifc --report output/change_report.json
-
-# 간격 직접 지정 예: 중심간격 55mm
-python src/modify_rebar.py input/girder_rebar.ifc output/girder_rebar_D19x5_s55.ifc --spacing 55
-
-# 2) 결과 검증 + 단면 비교 이미지
-python src/verify_rebar.py input/girder_rebar.ifc output/girder_rebar_D19x5.ifc --png output/section_before_after.png
+1. 프로그램 폴더로 이동합니다. 경로는 실제 위치에 맞게 바꾸세요.
+```powershell
+cd $HOME\Downloads\girder_rebar_modifier
 ```
+2. 최초 1회만: 폴더 안에 전용 환경을 만들고 라이브러리를 설치합니다.
+```powershell
+py -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+3. 변환합니다 (D19 × 5개, 자동 등간격). `output` 폴더에 결과 IFC가 생깁니다.
+```powershell
+.\.venv\Scripts\python.exe src\modify_rebar.py "input\girder rebar.ifc" "output\girder rebar_D19x5.ifc" --size 19 --count 5
+```
+4. (선택) 결과를 검증합니다.
+```powershell
+.\.venv\Scripts\python.exe src\verify_rebar.py "input\girder rebar.ifc" "output\girder rebar_D19x5.ifc"
+```
+
+- **이미 START로 프로그램을 실행한 적이 있으면** 폴더에 `.venv`가 만들어져 있을 수 있습니다. 그때는 "최초 1회" 두 줄은 건너뛰고 변환 명령만 실행하면 됩니다.
+- **Python이 아예 없는 컴퓨터**는 `python3` / `py` 명령이 없어 "최초 1회" 단계가 실패합니다. 이 경우 START 파일을 한 번 실행하면 폴더 안에 `.venv`가 만들어지고, 그다음부터 변환 명령을 쓸 수 있습니다.
+- 성공하면 마지막에 `[저장] output/...` 줄이 나오고, `output` 폴더에 결과 IFC가 생깁니다.
 
 **옵션 (`modify_rebar.py`)**
 
@@ -112,7 +140,6 @@ python src/verify_rebar.py input/girder_rebar.ifc output/girder_rebar_D19x5.ifc 
 ├─ START_Mac.command / STOP_Mac.command     # ★ macOS 실행(켜져 있으면 재시작) / 종료
 ├─ START_Windows.bat / STOP_Windows.bat     # ★ Windows 실행 / 종료
 ├─ launcher.py            # 실행기: 시작/재시작/종료, 브라우저 열기 (전용 Python 설치는 START 파일이 담당)
-├─ run_cli.bat            # 명령줄 일괄 실행 (IFC 파일을 끌어다 놓기)
 ├─ src/
 │  ├─ app.py              # 프로그램 화면 (Streamlit) - 아래 두 모듈을 그대로 호출
 │  ├─ modify_rebar.py     # 분석 → 배근 계산 → IFC 갱신 (핵심 로직, CLI 겸용)

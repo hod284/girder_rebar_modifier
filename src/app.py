@@ -96,7 +96,7 @@ def native_dialog(kind: str, init: str) -> str | None:
 
 def pick_input():
     cur = st.session_state.get("in_path", "")
-    p = native_dialog("file", str(Path(cur).parent) if cur else str(ROOT))
+    p = native_dialog("file", str(Path(cur).parent) if cur else str(ROOT / "input"))
     if p:
         st.session_state["in_path"] = p
 
@@ -301,7 +301,7 @@ st.caption("IFC 보 모델의 주근(상부근·하부근)을 분석하고, 입�
 
 in_path = Path(ss["in_path"]) if ss["in_path"] else None
 if not in_path or not in_path.is_file():
-    st.info("왼쪽 **① 입력 IFC 파일**에서 [📂 찾아보기]로 IFC 파일을 선택하세요.")
+    st.info("왼쪽 **① 입력 IFC 파일**에서 **📂 컴퓨터에서 IFC 파일 찾기**를 눌러 원본 IFC 파일을 선택하세요.")
     st.stop()
 data = in_path.read_bytes()
 try:

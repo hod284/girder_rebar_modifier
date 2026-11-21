@@ -1,4 +1,5 @@
-2026-11-21 16:17:02.973 Uvicorn server started on :::8501
+/Users/jeong-yunsu/Downloads/girder_rebar_modifier/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
 
   You can now view your Streamlit app in your browser.
 
@@ -11,5 +12,11 @@
   $ xcode-select --install
   $ pip install watchdog
             
-  Stopping...
-  Stopping...
+2026-11-21 17:49:45.026 The keyword arguments have been deprecated and will be removed in a future release. Use `config` instead to specify Plotly configuration options.
+2026-11-21 17:49:45.142 The keyword arguments have been deprecated and will be removed in a future release. Use `config` instead to specify Plotly configuration options.
+2026-11-21 17:49:45.153 The keyword arguments have been deprecated and will be removed in a future release. Use `config` instead to specify Plotly configuration options.
+2026-11-21 17:49:45.157 The keyword arguments have been deprecated and will be removed in a future release. Use `config` instead to specify Plotly configuration options.
+2026-11-21 17:49:45.162 The keyword arguments have been deprecated and will be removed in a future release. Use `config` instead to specify Plotly configuration options.
+2026-11-21 17:49:45.166 The keyword arguments have been deprecated and will be removed in a future release. Use `config` instead to specify Plotly configuration options.
+2026-11-21 17:49:45.170 The keyword arguments have been deprecated and will be removed in a future release. Use `config` instead to specify Plotly configuration options.
+2026-11-21 17:49:45.174 The keyword arguments have been deprecated and will be removed in a future release. Use `config` instead to specify Plotly configuration options.

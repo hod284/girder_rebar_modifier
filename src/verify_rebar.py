@@ -4,7 +4,7 @@
 modify_rebar.py 의 계산 로직을 쓰지 않고, IFC 를 다시 열어 '실제 생성된 3D 메시'에서
 주근 위치를 측정해 독립적으로 검증한다.
 
-    python src/verify_rebar.py input/girder_rebar.ifc output/girder_rebar_D19x5.ifc --png docs/section_before_after.png
+    python src/verify_rebar.py input/girder_rebar.ifc output/girder_rebar_D19x5.ifc --png output/section_before_after.png
 
 검증 항목
   1. IFC 스키마 유효성 (ifcopenshell.validate)
@@ -16,6 +16,7 @@ modify_rebar.py 의 계산 로직을 쓰지 않고, IFC 를 다시 열어 '실�
 import argparse
 import logging
 import sys
+from pathlib import Path
 
 import numpy as np
 import ifcopenshell
@@ -190,6 +191,7 @@ def plot(before, after, png):
         draw(fig.add_subplot(gs[1, col]), d, zoom=True)
     fig.suptitle("Girder G0  400x800 section (cover 40 mm, stirrup D13, mm)", fontsize=13)
     fig.tight_layout()
+    Path(png).parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(png, dpi=130)
 
 
