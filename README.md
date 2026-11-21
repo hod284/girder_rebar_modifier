@@ -73,12 +73,12 @@ IFC(IFC2X3, Tekla Structures 출력) 보 모델에서 <b>주근(상부근·하�
 
 ### 1.2 명령어로 실행 (터미널 / PowerShell)
 
-화면 없이 명령어로 변환합니다. 아래 명령을 **순서대로 복사해 붙여넣으면** 됩니다.
-원본 IFC 파일은 미리 `input` 폴더에 넣어 두세요. 예시는 원본 파일 이름이 `girder rebar.ifc`인 경우이며, 파일 이름에 띄어쓰기가 있으면 **따옴표로 감싸야** 합니다.
+화면 없이 명령어로 변환합니다. 원본 IFC 파일을 미리 `input` 폴더에 넣어 두고, 아래 명령을 **한 칸씩 복사해 붙여넣으세요.**
+예시의 원본 파일 이름은 `girder rebar.ifc`입니다. 파일 이름에 띄어쓰기가 있으면 따옴표로 감싸야 합니다.
 
 **macOS (터미널)**
 
-1. 프로그램 폴더로 이동합니다. 경로는 실제 위치에 맞게 바꾸세요.
+1. 프로그램 폴더로 이동합니다. 경로는 실제 위치로 바꾸세요.
 ```bash
 cd ~/Downloads/girder_rebar_modifier
 ```
@@ -98,13 +98,13 @@ python3 -m venv .venv
 
 **Windows (PowerShell)**
 
-1. 프로그램 폴더로 이동합니다. 경로는 실제 위치에 맞게 바꾸세요.
+1. 프로그램 폴더로 이동합니다. 따옴표 안의 경로를 실제 위치로 바꾸세요.
 ```powershell
-cd $HOME\Downloads\girder_rebar_modifier
+cd "C:\Users\사용자이름\Downloads\girder_rebar_modifier"
 ```
 2. 최초 1회만: 폴더 안에 전용 환경을 만들고 라이브러리를 설치합니다.
 ```powershell
-py -m venv .venv
+python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 3. 변환합니다 (D19 × 5개, 자동 등간격). `output` 폴더에 결과 IFC가 생깁니다.
@@ -116,9 +116,8 @@ py -m venv .venv
 .\.venv\Scripts\python.exe src\verify_rebar.py "input\girder rebar.ifc" "output\girder rebar_D19x5.ifc"
 ```
 
-- **이미 START로 프로그램을 실행한 적이 있으면** 폴더에 `.venv`가 만들어져 있을 수 있습니다. 그때는 "최초 1회" 두 줄은 건너뛰고 변환 명령만 실행하면 됩니다.
-- **Python이 아예 없는 컴퓨터**는 `python3` / `py` 명령이 없어 "최초 1회" 단계가 실패합니다. 이 경우 START 파일을 한 번 실행하면 폴더 안에 `.venv`가 만들어지고, 그다음부터 변환 명령을 쓸 수 있습니다.
-- 성공하면 마지막에 `[저장] output/...` 줄이 나오고, `output` 폴더에 결과 IFC가 생깁니다.
+성공하면 마지막에 `[저장] output...` 줄이 나오고, `output` 폴더에 결과 IFC가 생깁니다.
+2단계가 실패하면 Python 3.10 이상이 설치되어 있는지 `python --version`(Mac은 `python3 --version`)으로 확인하세요.
 
 **옵션 (`modify_rebar.py`)**
 
